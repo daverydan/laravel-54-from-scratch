@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Welcome</title>
+	<title>My Application</title>
 </head>
 <body>
 	<h1>Tasks</h1>

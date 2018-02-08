@@ -13,7 +13,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-		return view('posts.index');
+    	$posts = Post::latest()->get();
+		return view('posts.index', compact('posts'));
     }
 
     /**
@@ -34,15 +35,16 @@ class PostsController extends Controller
      */
     public function store()
     {
+    	// dd(request()->all());
 		$this->validate(request(), [
 			'title' => 'required|min:3',
 			'body' => 'required'
 		],[
-			'title.required' => 'A Post Title with a minimum of 3 characters is required',
-			'body.required' => 'Post Body text is required',
+			'title.required' => 'A post title with a minimum of 3 characters is required',
+			'body.required' => 'A post body is required'
 		]);
 
-		Post::create(['title', 'body']);
+		Post::create(request(['title', 'body']));
 
 		return redirect('/');
     }
@@ -53,9 +55,9 @@ class PostsController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show() // Post $post
+    public function show(Post $post) // Post $post
     {
-		return view('posts.show');
+		return view('posts.show', compact('post'));
     }
 
     /**

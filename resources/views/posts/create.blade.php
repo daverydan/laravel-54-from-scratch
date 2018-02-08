@@ -6,9 +6,11 @@
 		Create a post
 	</h3>
 
+	@include('layouts.errors')
+	
 	<form method="post" action="/posts">
 		{{ csrf_field() }}
-		
+
 		<div class="form-group">
 			<label for="title">Title:</label>
 			<input type="text" class="form-control" name="title">
@@ -19,7 +21,10 @@
 			<textarea id="body" name="body" class="form-control"></textarea>
 		</div>
 
-		<button type="submit" class="btn btn-primary">Publish</button>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Publish</button>
+		</div>
+		
 	</form>
 </div>
 @stop

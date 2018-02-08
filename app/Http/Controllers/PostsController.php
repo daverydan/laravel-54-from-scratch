@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
@@ -33,22 +32,15 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-		// dd(request()->all());
-		// dd(request('title'));
-		// dd(request('body'));
-		// dd(request(['title', 'body']));
-
-		// $post = new Post;
-		// $post->title = request('title');
-		// $post->body = request('body');
-		// $post->save();
-		
-		// Post::create([
-		// 	'title' => request('title'),
-		// 	'body' => request('body'),
-		// ]);
+		$this->validate(request(), [
+			'title' => 'required|min:3',
+			'body' => 'required'
+		],[
+			'title.required' => 'A Post Title with a minimum of 3 characters is required',
+			'body.required' => 'Post Body text is required',
+		]);
 
 		Post::create(['title', 'body']);
 
@@ -84,7 +76,7 @@ class PostsController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Post $post)
     {
         //
     }

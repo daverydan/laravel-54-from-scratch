@@ -7,5 +7,8 @@ namespace App;
 // extending our own model class
 class Post extends Model
 {
-    // 
+    public function comments()
+    {
+    	return $this->hasMany(Comment::class);
+    }
 }

@@ -11,4 +11,10 @@ class Post extends Model
     {
     	return $this->hasMany(Comment::class);
     }
+
+    public function addComment($body)
+    {
+    	// Eloquent takes care of the $post->id because of the relationship
+    	$this->comments()->create(compact('body'));
+    }
 }

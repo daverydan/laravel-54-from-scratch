@@ -12,6 +12,11 @@ class Post extends Model
     	return $this->hasMany(Comment::class);
     }
 
+    public function user() // $post->user or $comment->post->user->name
+    {
+    	return $this->belongsTo(User::class);
+    }
+
     public function addComment($body)
     {
     	// Eloquent takes care of the $post->id because of the relationship

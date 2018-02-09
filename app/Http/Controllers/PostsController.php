@@ -6,6 +6,11 @@ use App\Post;
 
 class PostsController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth')->except(['index', 'show']);
+	}
+
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +49,20 @@ class PostsController extends Controller
 			'body.required' => 'A post body is required'
 		]);
 
-		Post::create(request(['title', 'body']));
+		// Post::create(request(['title', 'body']));
+
+		/* Moved to model
+			Post::create([
+				'title' => request('title'),
+				'body' => request('body'),
+				'user_id' => auth()->id()
+			]);
+		*/
+
+		// added user_id field
+		auth()->user()->publish(
+			new Post(request(['title', 'body']))
+		);
 
 		return redirect('/');
     }

@@ -21,7 +21,11 @@
 			<textarea id="body" name="body" class="form-control"></textarea>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group float-left">
+			<a href="/" class="btn btn-danger">Cancel</a>
+		</div>
+
+		<div class="form-group float-right">
 			<button type="submit" class="btn btn-primary">Publish</button>
 		</div>
 		

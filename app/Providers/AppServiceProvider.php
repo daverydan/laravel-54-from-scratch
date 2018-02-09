@@ -2,10 +2,17 @@
 
 namespace App\Providers;
 
+use \App\Billing\Stripe;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+	// defer it so it's not required on every single page load
+	// only loads when requested
+	// if you have anything in the boot() you can't defer
+	// it needs to be loaded and cached foreach page load
+	// protected $defer = true;
+
     /**
      * Bootstrap any application services.
      *
@@ -31,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Stripe::class, function($app) {
+        	// If you need to pass something else in order to resolve, you can
+        	// $app->make('');
+			return new Stripe(config('services.stripe.secret'));
+        });
     }
 }

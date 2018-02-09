@@ -22,6 +22,10 @@
 
 			@if (Auth::check())
 				<a class="p-2 ml-auto text-muted" href="#">Welcome, {{ Auth::user()->name }}</a>
+				<a class="p-2 ml-auto text-muted" href="/logout">Logout</a>
+			@else
+				<a href="/login">Login</a>
+				<a href="/register">Register</a>
 			@endif
 			<!-- <a class="p-2 text-muted" href="#">U.S.</a>
 			<a class="p-2 text-muted" href="#">Technology</a>

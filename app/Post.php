@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+
 // use Illuminate\Database\Eloquent\Model;
 
 // extending our own model class
@@ -21,5 +23,17 @@ class Post extends Model
     {
     	// Eloquent takes care of the $post->id because of the relationship
     	$this->comments()->create(compact('body'));
+    }
+
+    public function scopeFilter($query, $filters)
+    {
+    	if ($month = $filters['month']) {
+    		// Carbon parse the month and return the month name
+    		$query->whereMonth('created_at', Carbon::parse($month)->month);
+    	}
+
+    	if ($year = $filters['year']) {
+    		$query->whereYear('created_at', $year);
+    	}
     }
 }

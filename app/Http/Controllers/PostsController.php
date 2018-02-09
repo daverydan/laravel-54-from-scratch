@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use \App\Repositories\Posts;
 
 class PostsController extends Controller
 {
@@ -16,7 +17,7 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Posts $posts)
     {
     	// $posts = Post::latest()->get();
     	
@@ -35,6 +36,11 @@ class PostsController extends Controller
     	$posts = Post::latest()
 		    		->filter(request(['month', 'year']))
 		    		->get();
+
+		// DI, Auto-Resolution & Repositories
+		// using \App\Repositories\Posts - Posts $posts
+		// dd($posts); shows DI with Redis class & the Posts instance
+		// $posts = $posts->all();
 
 		return view('posts.index', compact('posts', 'archives'));
     }
